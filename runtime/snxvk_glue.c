@@ -271,7 +271,14 @@ void snxvk_cpu_map_end(u64 addr, u64 size, int changed){ if(!g_snxvk_on) return;
 static void wait_deadline(u64 deadline){
   u64 now=plat_ns(); if(now>=deadline) return;
   if(deadline-now>500000ull) plat_sleep_ns((i64)(deadline-now-500000ull));
-  while(plat_ns()<deadline) __builtin_ia32_pause(); }
+#if defined(__aarch64__)
+  while(plat_ns()<deadline) __asm__ __volatile__("yield" ::: "memory");
+#elif defined(__x86_64__) || defined(__i386__)
+  while(plat_ns()<deadline) __builtin_ia32_pause();
+#else
+  while(plat_ns()<deadline) __asm__ __volatile__("" ::: "memory");
+#endif
+}
 /* HDR output (snxvk hdr.c): the peak brightness the window's display reports through DXGI (Windows 10 1803+), in
    nits; 0 if unknown. dxgi.dll is loaded here, so the EXE doesn't import it */
 #if !defined(_WIN32)

@@ -30,6 +30,7 @@ linux/appimage/cache/
 linux/appimage/AppDir/
 
 # never commit binaries, archives or game files
+tools/hactool
 *.exe
 *.dll
 *.pdb

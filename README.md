@@ -111,6 +111,13 @@ no game files are inside. The downloads are checked against their SHA-256 and ke
 is installed in `~/.local/share/MetroidDreadRecomp` (or `METROID_DREAD_HOME`). It needs glibc 2.38 or newer, SDL2 for
 controllers and an OpenGL 4.3 driver.
 
+For ARM64 Linux, `bash linux/make_appimage_aarch64.sh` builds `linux/dist/Metroid_Dread-aarch64.AppImage` with a native
+AArch64 runtime, the build host's native C compiler and Python 3.12. It requires glibc 2.39 or newer, SDL2 for controllers
+and an OpenGL 4.3 driver. The AppImage contains no game files; on first start it asks for the player's own extracted
+Metroid Dread 2.1.0 files. In an AArch64 container running under QEMU on an x86_64 host, prepare the AppDir with
+`SWR_APPIMAGE_PREPARE_ONLY=1 bash linux/make_appimage_aarch64.sh`, then run `bash linux/package_appimage_aarch64.sh`
+on the host to finish the image.
+
 ## What is in this repository
 
 - Source code only, plus three prebuilt third-party static libraries, kept so the build does not need MSYS2:

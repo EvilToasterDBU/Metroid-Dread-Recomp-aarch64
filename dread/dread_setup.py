@@ -417,7 +417,7 @@ def main():
                     ok = False
                 if ok: cc = cl
                 else: log('The bundled Clang does not run on this system: compiling with GCC instead.')
-            for n in ('gcc', 'x86_64-buildroot-linux-gnu-gcc'):
+            for n in ('gcc', 'x86_64-buildroot-linux-gnu-gcc', 'aarch64-buildroot-linux-gnu-gcc'):
                 if not cc and os.path.isfile(os.path.join(HERE, 'gcc', 'bin', n)):
                     cc = os.path.join(HERE, 'gcc', 'bin', n)
             cc = cc or shutil.which('gcc')
